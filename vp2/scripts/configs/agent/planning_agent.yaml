@@ -1,0 +1,6 @@
+defaults:
+  - optimizer: mppi
+
+_target_: vp2.mpc.agent.PlanningAgent
+replan_interval: 1
+a_dim: ${env.a_dim}

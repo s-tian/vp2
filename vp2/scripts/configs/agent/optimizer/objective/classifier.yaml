@@ -1,0 +1,4 @@
+_target_: vp2.mpc.objectives.ClassifierReward
+key: rgb
+weight: 1
+checkpoint_directory: ???

@@ -1,0 +1,11 @@
+defaults:
+  - objective: mse_rgb
+  - sampler: correlated_noise
+
+_target_: vp2.mpc.mppi.MPPIOptimizer
+a_dim: ${env.a_dim}
+num_samples: 200
+horizon: ${planning_horizon}
+gamma: 0.05
+init_std: [0.5, 0.5, 0.5, 0]
+log_every: 1

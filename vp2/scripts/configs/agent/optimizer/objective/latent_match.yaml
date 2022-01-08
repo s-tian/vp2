@@ -1,0 +1,3 @@
+_target_: vp2.mpc.objectives.LatentMatchingError
+key: vqgan_latent
+weight: 1

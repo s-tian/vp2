@@ -1,0 +1,14 @@
+_target_: vp2.mpc.objectives.CombinedObjective
+objectives:
+  rgb:
+    _target_: vp2.mpc.objectives.SquaredError
+    key: rgb
+    weight: 1
+  depth:
+    _target_: vp2.mpc.objectives.SquaredError
+    key: depth
+    weight: 1
+  normal:
+    _target_: vp2.mpc.objectives.SquaredError
+    key: normal
+    weight: 1

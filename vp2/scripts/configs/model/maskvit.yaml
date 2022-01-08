@@ -1,0 +1,15 @@
+_target_: vp2.models.wgpt_interface.WGPTModel
+n_past: 2
+a_dim: ${env.a_dim}
+epoch: 0
+cfg:
+  sweep_name: null
+  task_num: null
+  model_path: ???
+  cfg_path: ???
+  ddp_port: 23452
+  batch_size: 25
+  temperature: None
+  num_iters: 5
+  n_cond_frames: 2
+  total_pred_len: 12

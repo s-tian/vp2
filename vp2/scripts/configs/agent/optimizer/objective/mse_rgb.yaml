@@ -1,0 +1,3 @@
+_target_: vp2.mpc.objectives.SquaredError
+key: rgb
+weight: 1

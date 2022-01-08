@@ -1,0 +1,39 @@
+name: vp2 
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  - python=3.7.9
+  - pip==21.3.1
+  - numpy==1.21.5
+  - torchvision==0.11.2
+  - torchaudio==0.10.1
+  - glew
+  - patchelf
+  - cudnn
+  - nvidia::cudatoolkit=11.3
+  - pytorch::pytorch==1.10.1
+  - libgcc==5.2.0
+  - libstdcxx-ng
+  - pip:
+    - dm_control==1.0.3.post1
+    - gym==0.19.0
+    - glfw==1.12.0
+    - git+https://github.com/google-research/robodesk.git@a8edde34f879242730c026dfe7c6e3beb4318023
+    - git+https://github.com/s-tian/iGibson.git@27216bf037436235814ec7a0843eb2b8a4e0376d
+    - git+https://github.com/s-tian/robosuite.git@163e4d42866ecbb42c439fe0be4d5d52bb8320a1
+    - git+https://github.com/s-tian/robomimic.git@1609a7ae4da4acc7aaab14ef731fdda82f5a7225
+    - git+ssh://git@github.com/s-tian/fitvid.git@9a8178056c022e5b2c8f22551ffab8510842db60
+    - h5py==3.6.0
+    - opencv-python==4.5.5.62
+    - hydra-core==1.1.2
+    - moviepy==1.0.3
+    - stable-baselines3==1.4.0
+    - scikit-image==0.19.3
+    - scikit-learn==1.0.2
+    - lpips==0.1.4
+    - piq==0.6.0
+    - ipdb
+    - -e .

@@ -1,0 +1,7 @@
+*.egg-info
+__pycache__/
+taming/
+*outputs/
+*launch_files
+*plots
+*tmp

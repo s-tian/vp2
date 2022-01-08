@@ -1,0 +1,4 @@
+_target_: vp2.models.simulator_model.SimulatorModel
+num_envs: ${num_processes}
+env_cfg: ${env}
+multiprocess: True

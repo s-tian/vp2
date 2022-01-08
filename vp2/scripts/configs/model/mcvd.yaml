@@ -1,0 +1,7 @@
+_target_: vp2.models.mcvd_interface.MCVDInterface
+checkpoint_dir: ???
+n_past: 2
+num_diffusion_steps: 100
+epoch: null
+planning_modalities:
+  - rgb

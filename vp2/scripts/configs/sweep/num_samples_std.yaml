@@ -1,0 +1,5 @@
+# @package _global_
+hydra:
+  sweep:
+    dir: outputs/${hydra.job.name}/${model_name},${env.task},${agent.optimizer.num_samples},${agent.optimizer.init_std}/
+    subdir: ${seed}

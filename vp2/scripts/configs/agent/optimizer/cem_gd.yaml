@@ -1,0 +1,18 @@
+defaults:
+  - objective: mse_rgb
+  - sampler: correlated_noise
+
+_target_: vp2.mpc.cem_gd.CEMGDOptimizer
+a_dim: ${env.a_dim}
+horizon: ${planning_horizon}
+opt_iters: 3
+init_std: [0.5, 0.5, 0, 0]
+elites_frac: 0.05
+num_grad_opt_seqs: 1
+num_samples_init: 500
+num_samples_replan: 50
+log_every: 1
+start_lr: 1e-2
+factor_shrink: 0.5
+max_tries: 7
+max_iterations: 15

@@ -1,0 +1,4 @@
+_target_: vp2.mpc.objectives.LPIPSError
+weight: 100
+key: rgb
+

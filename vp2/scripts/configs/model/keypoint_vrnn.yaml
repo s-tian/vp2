@@ -1,0 +1,5 @@
+_target_: vp2.models.keypoint_vrnn.KeypointVRNNInterface
+checkpoint_dir: ???
+n_past: 2
+planning_modalities: ${planning_modalities}
+epoch: 60000

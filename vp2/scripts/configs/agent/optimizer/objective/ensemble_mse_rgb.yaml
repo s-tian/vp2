@@ -1,0 +1,7 @@
+_target_: vp2.mpc.objectives.EnsembleObjective
+objective:
+  _target_: vp2.mpc.objectives.SquaredError
+  key: rgb
+  weight: 1
+agg: mean
+lamb: 0

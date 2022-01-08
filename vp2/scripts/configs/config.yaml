@@ -1,0 +1,33 @@
+defaults:
+  - model: fitvid
+  - agent: planning_agent
+  - env: robosuite
+  - sweep: single_task
+#  - hydra/launcher: submitit_slurm
+
+seed: 0
+num_processes: 16
+num_trajectories: 100
+max_traj_length: 15
+n_context: 2
+planning_horizon: 10
+camera_height: 64
+camera_width: 64
+run_name: default
+resume: True
+
+planning_modalities:
+  - rgb
+
+
+camera_names:
+  - agentview_shift_2
+model_name: default
+
+hydra:
+  job:
+    config:
+      override_dirname:
+        exclude_keys:
+          - seed
+

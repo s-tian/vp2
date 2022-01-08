@@ -1,0 +1,6 @@
+_target_: vp2.models.torch_fitvid_interface.FitVidTorchModel
+checkpoint_dir: ???
+n_past: 2
+planning_modalities: ${planning_modalities}
+epoch: null
+max_batch_size: 200

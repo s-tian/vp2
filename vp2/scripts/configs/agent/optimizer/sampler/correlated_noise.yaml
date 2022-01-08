@@ -1,0 +1,4 @@
+_target_: vp2.mpc.sampler.CorrelatedNoiseSampler
+a_dim: ${env.a_dim}
+beta: 0.5
+horizon: ${planning_horizon}

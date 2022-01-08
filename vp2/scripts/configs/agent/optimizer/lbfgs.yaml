@@ -1,0 +1,10 @@
+defaults:
+  - objective: mse_rgb
+
+_target_: vp2.mpc.lbfgs.LBFGSOptimizer
+a_dim: ${env.a_dim}
+horizon: ${planning_horizon}
+num_opt_steps: 100
+lr: 5e-2
+line_search_fn: strong_wolfe
+log_every: 1

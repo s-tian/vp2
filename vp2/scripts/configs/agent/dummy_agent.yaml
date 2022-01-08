@@ -1,0 +1,2 @@
+_target_: vp2.mpc.agent.DummyAgent
+a_dim: ${a_dim}

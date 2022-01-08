@@ -1,0 +1,18 @@
+_target_: vp2.envs.robodesk_env.RoboDeskEnv
+a_dim: 5
+planning_modalities: ${planning_modalities}
+camera_height: ${camera_height}
+camera_width: ${camera_width}
+
+# Base environment config
+task: open_slide
+reward: dense
+action_repeat: 50
+episode_length: 0 # Don't allow the environment to end the episode
+image_size: ${camera_width}
+
+# Goal configs
+goals_dataset: GOALS_DATASET_PATH_HERE/robodesk_${env.task}/goals.hdf5
+traj_start_idx: 0
+use_final_goal_img: True
+goal_ims_from_data: False

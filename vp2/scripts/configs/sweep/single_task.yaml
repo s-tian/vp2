@@ -1,0 +1,5 @@
+# @package _global_
+hydra:
+  sweep:
+    dir: outputs/${hydra.job.name}/${model_name}/
+    subdir: ${seed}

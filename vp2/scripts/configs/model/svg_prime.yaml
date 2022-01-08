@@ -1,0 +1,5 @@
+_target_: vp2.models.svg_prime_interface.SVGPrimeInterface
+checkpoint_dir: ???
+n_past: 2
+planning_modalities: ${planning_modalities}
+epoch: null
