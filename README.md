@@ -2,7 +2,7 @@
 
 VP<sup>2</sup> is a benchmark for video prediction models for robotic manipulation via model-predictive control. 
 This code accompanies the paper [A Control-Centric Benchmark for Video Prediction](https://arxiv.org/abs/2304.13723) 
-(ICLR 2023).
+(ICLR 2023). The project page containing more details can be found [here](https://s-tian.github.io/projects/vp2/).
  
 ## Installation
 
