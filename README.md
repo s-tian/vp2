@@ -1,7 +1,9 @@
 # VP<sup>2</sup>
 
 VP<sup>2</sup> is a benchmark for video prediction models for robotic manipulation via model-predictive control. 
-
+This code accompanies the paper [A Control-Centric Benchmark for Video Prediction](https://arxiv.org/abs/2304.13723) 
+(ICLR 2023).
+ 
 ## Installation
 
 This repository comes with an `environment.yml` file for creating a conda environment with required dependencies. 
