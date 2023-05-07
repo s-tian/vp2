@@ -1,9 +1,7 @@
 import numpy as np
 import torch
 import time
-from hydra.utils import instantiate
 
-from fitvid.utils.depth_utils import depth_to_rgb_im
 from vp2.mpc.optimizer import Optimizer
 from vp2.mpc.utils import ObservationList, write_moviepy_gif, dict_to_numpy
 

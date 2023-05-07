@@ -25,7 +25,6 @@ dependencies:
     - git+https://github.com/s-tian/iGibson.git@27216bf037436235814ec7a0843eb2b8a4e0376d
     - git+https://github.com/s-tian/robosuite.git@163e4d42866ecbb42c439fe0be4d5d52bb8320a1
     - git+https://github.com/s-tian/robomimic.git@1609a7ae4da4acc7aaab14ef731fdda82f5a7225
-    - git+ssh://git@github.com/s-tian/fitvid.git@9a8178056c022e5b2c8f22551ffab8510842db60
     - h5py==3.6.0
     - opencv-python==4.5.5.62
     - hydra-core==1.1.2

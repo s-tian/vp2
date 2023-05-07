@@ -4,7 +4,6 @@ from contextlib import ExitStack
 
 import pprint
 import torch
-import numpy as np
 from fitvid.model.fitvid import FitVid
 from vp2.mpc.utils import dict_to_numpy, slice_dict, cat_dicts
 from vp2.models.model import VideoPredictionModel
