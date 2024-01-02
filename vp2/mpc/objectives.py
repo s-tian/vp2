@@ -5,6 +5,7 @@ import piq
 from hydra.utils import to_absolute_path
 
 from vp2.mpc.utils import slice_dict
+from vp2.util.conv_predictor import ConvPredictor
 
 
 def sum(x, dim):
@@ -114,10 +115,6 @@ class ClassifierReward(Objective):
         :param use_probs: if True, use sigmoid(logits) as the score, otherwise, directly use the logits
         :param use_gpu:
         """
-        from vp2.scripts.train_task_success_classifier import (
-            ConvPredictor,
-        )
-
         super().__init__(weight)
         self.checkpoint_directory = to_absolute_path(checkpoint_directory)
         self.key = key
@@ -125,8 +122,8 @@ class ClassifierReward(Objective):
         self.use_probs = use_probs
         self.model = ConvPredictor()
         self.use_gpu = use_gpu
-        print(f"Loading classifier reward predictor from {checkpoint_directory}")
-        self.model.load_state_dict(torch.load(checkpoint_directory))
+        print(f"Loading classifier reward predictor from {self.checkpoint_directory}")
+        self.model.load_state_dict(torch.load(self.checkpoint_directory))
         if self.use_gpu:
             self.model.cuda()
         self.model.eval()
