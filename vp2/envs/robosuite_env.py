@@ -16,8 +16,10 @@ from vp2.mpc.utils import resize_np_image_aa
 class RobosuiteEnv(BaseEnv):
     def __init__(self, **kwargs):
         self.env_hparams = kwargs
+        # get the file path of this file
+        this_file_path = os.path.dirname(os.path.realpath(__file__))
         env_meta = FileUtils.get_env_metadata_from_dataset(
-            dataset_path=kwargs["env_dataset"]
+            os.path.join(this_file_path, "robosuite_env_meta.hdf5")
         )
 
         self.keys_to_take = dict(
