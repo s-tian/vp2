@@ -1,6 +1,8 @@
 import numpy as np
 from PIL import Image
 
+from hydra.utils import to_absolute_path
+
 import gym.spaces as spaces
 from dm_control import mujoco
 from vp2.envs.base import BaseEnv
@@ -146,6 +148,9 @@ class RoboDeskWrapper(RoboDesk):
 class RoboDeskEnv(RoboDeskWrapper, BaseEnv):
     def __init__(self, **kwargs):
         self.env_hparams = kwargs
+        self.env_hparams["goals_dataset"] = to_absolute_path(
+            self.env_hparams["goals_dataset"]
+        )
         self.image_key_name = kwargs.get("image_key_name", "rgb")
         wrapper_kwargs = [
             "task",
