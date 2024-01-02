@@ -12,7 +12,7 @@ episode_length: 0 # Don't allow the environment to end the episode
 image_size: ${camera_width}
 
 # Goal configs
-goals_dataset: GOALS_DATASET_PATH_HERE/robodesk_${env.task}/goals.hdf5
+goals_dataset: ./robodesk_benchmark_tasks/robodesk_${env.task}/goals.hdf5
 traj_start_idx: 0
 use_final_goal_img: True
 goal_ims_from_data: False

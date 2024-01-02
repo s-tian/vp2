@@ -1,6 +1,5 @@
 _target_: vp2.envs.robosuite_env.RobosuiteEnv
 a_dim: 4
-env_dataset: /viscam/projects/perceptual-metrics/robosuite/robosuite/models/assets/demonstrations/multi-scripted-ffix1k-2/demo.hdf5
 camera_names: ${camera_names}
 planning_modalities: ${planning_modalities}
 randomize_lighting: False
@@ -15,7 +14,7 @@ magic_env: False
 reset_xml: True
 
 # Goal configs
-goals_dataset: GOALS_DATASET_PATH_HERE/rendered_256.hdf5
+goals_dataset: ./robosuite_benchmark_tasks/combined/rendered_256.hdf5
 traj_start_idx: -1
 use_final_goal_img: True
 goal_ims_from_data: False

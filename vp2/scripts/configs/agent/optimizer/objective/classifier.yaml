@@ -1,4 +1,4 @@
 _target_: vp2.mpc.objectives.ClassifierReward
 key: rgb
 weight: 1
-checkpoint_directory: ???
+checkpoint_directory: cost_classifiers/${env.task}.pt

@@ -10,6 +10,6 @@ objective:
       _target_: vp2.mpc.objectives.ClassifierReward
       key: rgb
       weight: 10
-      checkpoint_directory: ???
+      checkpoint_directory: cost_classifiers/${env.task}.pt
 agg: mean
 lamb: 0
