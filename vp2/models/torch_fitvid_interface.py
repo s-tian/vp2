@@ -4,11 +4,15 @@ from contextlib import ExitStack
 
 import pprint
 import torch
-from fitvid.model.fitvid import FitVid
 from vp2.mpc.utils import dict_to_numpy, slice_dict, cat_dicts
 from vp2.models.model import VideoPredictionModel
 
 from hydra.utils import to_absolute_path
+
+try:
+    from fitvid.model.fitvid import FitVid
+except ModuleNotFoundError:
+    raise ModuleNotFoundError("FitVid is not installed. Please see the README for installation instructions.")
 
 
 def slice_dict(d, start_idx, end_idx):
@@ -30,7 +34,7 @@ class FitVidTorchModel(VideoPredictionModel):
         planning_modalities,
         max_batch_size=800,
         epoch=None,
-        device="cuda:0",
+        device='cuda:0',
     ):
         hp = dict()
         # load HP from config file, if it exists
@@ -66,7 +70,6 @@ class FitVidTorchModel(VideoPredictionModel):
         self.device = device
         print("Load params")
         self.model.load_parameters(self.checkpoint_file)
-
         print(self.device)
         self.model.to(self.device)
         self.model.eval()
@@ -74,9 +77,7 @@ class FitVidTorchModel(VideoPredictionModel):
     def prepare_batch(self, xs):
         keys = ["video", "actions"]
         batch = {
-            k: torch.from_numpy(x).to(self.device).float()
-            for k, x in xs.items()
-            if k in keys
+            k: torch.from_numpy(x).to(self.device).float() for k, x in xs.items() if k in keys
         }
         batch["video"] = torch.permute(batch["video"], (0, 1, 4, 2, 3))
         # batch['video'] = batch['video'][..., :3, :, :]
@@ -115,7 +116,6 @@ class FitVidTorchModel(VideoPredictionModel):
                         )
                     )
                 depth_preds = torch.cat(depth_preds, dim=1)
-                # preds = torch.cat((preds, depth_preds), axis=-3)
                 depth_preds = torch.permute(depth_preds, (0, 1, 3, 4, 2))
                 preds["depth"] = depth_preds
             if "normal" in self.planning_modalities and "normal" not in preds:
@@ -129,7 +129,6 @@ class FitVidTorchModel(VideoPredictionModel):
                 normal_preds = torch.cat(normal_preds, dim=1)
                 normal_preds = torch.permute(normal_preds, (0, 1, 3, 4, 2))
                 preds["normal"] = normal_preds
-                # preds = torch.cat((preds, normal_preds), axis=-3)
         preds[self.base_prediction_modality] = torch.permute(
             preds[self.base_prediction_modality], (0, 1, 3, 4, 2)
         )

@@ -5,7 +5,12 @@ from contextlib import ExitStack
 from omegaconf import OmegaConf
 from hydra.utils import to_absolute_path
 from hydra.utils import instantiate
-from struct_vrnn.model.keypoint_vrnn import StructVRNN
+
+try:
+    from struct_vrnn.model.keypoint_vrnn import StructVRNN
+except ModuleNotFoundError:
+    raise ModuleNotFoundError(f"Failed to load StructVRNN model. This is installed separately from the VP2 benchmark. "
+                              f"Please follow the package installation instructions in the VP2 README to clone/install.")
 
 from vp2.models.model import VideoPredictionModel
 from vp2.mpc.utils import dict_to_float_tensor, dict_to_cuda
@@ -54,7 +59,9 @@ class KeypointVRNNInterface(VideoPredictionModel):
                 0, batch["video"].shape[0], self.max_batch_size
             ):
                 predictions = self.model(
-                    video[compute_batch_idx : compute_batch_idx + self.max_batch_size],
+                    video[
+                        compute_batch_idx : compute_batch_idx + self.max_batch_size
+                    ],
                     actions[
                         compute_batch_idx : compute_batch_idx + self.max_batch_size
                     ],

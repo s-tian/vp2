@@ -5,15 +5,18 @@ from functools import partial
 import numpy as np
 import torch
 import torch.nn as nn
-
 from tqdm import tqdm
 
 from hydra.utils import to_absolute_path
-from mcvd.datasets import get_dataset, data_transform, inverse_data_transform
-from mcvd.main import dict2namespace
-from mcvd.models.ema import EMAHelper
-from mcvd.models import ddpm_sampler
-from mcvd.runners.ncsn_runner import get_model, conditioning_fn
+try:
+    from mcvd.datasets import get_dataset, data_transform, inverse_data_transform
+    from mcvd.main import dict2namespace
+    from mcvd.models.ema import EMAHelper
+    from mcvd.models import ddpm_sampler
+    from mcvd.runners.ncsn_runner import get_model, conditioning_fn
+except ModuleNotFoundError:
+    raise ModuleNotFoundError(f"Failed to load MCVD model. This is installed separately from the VP2 benchmark. "
+                              f"Please follow the package installation instructions in the VP2 README to clone/install.")
 
 from vp2.models.model import VideoPredictionModel
 
