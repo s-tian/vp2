@@ -67,7 +67,7 @@ We implement `cem`, `mppi`, `cem-gd`, and `lbfgs`. The latter two require the mo
 We provide the experiment commands used in the case study in the paper in the `experiments` folder.
 
 
-## Set up video prediction models 
+## Set up video prediction models
 Here we provide pretrained code for the experiments in the paper. Each model should be installed through a separate
 Python module and interfaced using the code in `vp2/models`. Please install the modules for the models you would like,
 and then download the pretrained weights if you have not already (please see "Installation" above for the download link). 
@@ -175,7 +175,7 @@ Note that this unfortunately does not support GPU rendering, but this is usually
 
 #### hydra.errors.InstantiationException: Error locating target 'vp2.models...', see chained exception above.
 This error occurs when the model class specified in the config file cannot be found. Make sure that the model class is installed as a Python module,
-as described above in the [model implementations](#model-implementations-and-pre-trained-weights) section.
+as described above in the [model implementations](#set-up-video-prediction-models) section.
 
 ## Citation
 If you find this code useful, please cite the following paper:
