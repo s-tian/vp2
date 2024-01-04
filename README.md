@@ -10,11 +10,27 @@ This repository comes with an `environment.yml` file for creating a conda enviro
 
 After cloning this repository to your machine and installing conda, use `conda env create -f environment.yml` to generate a conda environment called `vp2`.
 
-You will also need to download the data containing task instance specifications (initial states and goals). 
-This can be found at the following link: https://purl.stanford.edu/qf310mj0842 (1.5GB).
+You will also need to download the data containing task instance specifications (initial states and goals) as
+well as the classifier weights for the robodesk environment. Pretrained models for
+SVG', FitVid, MCVD, and StructVRNN are also included.
 
-After downloading, you should point the `goals_dataset` variables (currently with dummy values) in 
-`scripts/configs/env/robodesk.yaml` and `scripts/configs/env/robosuite.yaml` such that they point to the location of 
+These can all be found at the following link: https://purl.stanford.edu/qf310mj0842 (19.6GB).
+
+The easiest way to get started is to download all files and extract them to the `vp2` folder in this repository.
+That is, the `vp2` folder should contain the following directories:
+- `envs`
+- `models`
+- `mpc`
+- `scripts`
+- `util`
+- `cost_classifiers`
+- `robodesk_benchmark_tasks`
+- `robosuite_benchmark_tasks`
+- `pretrained_models`
+
+If you want to place any of the files in a different location, you should point the corresponding variables 
+in the Hydra configs to those paths. For instance, if you want to change the location of your goal datasets, point
+`goals_dataset` in `scripts/configs/env/robodesk.yaml` and `scripts/configs/env/robosuite.yaml` such that they point to the location of 
 the `goals.hdf5` file for each environment. Note that these paths are relative to directory that the script is run from, 
 not the output folder as per Hydra defaults.
 
@@ -24,7 +40,7 @@ https://purl.stanford.edu/cw843qn4148 (182GB total).
 Included are video data for the robosuite environment (5k trajectories, with the remaining trajectories renderable 
 from low-dimensional state, see [below](#rendering-low-dimensional-datasets)) and full video training data for all robodesk tasks.
 
-Note that while there are for example separate data files for different robodesk tasks, we always train models
+Note that while there are separate data files for different robodesk tasks, we always train models
 on all of the robodesk data (or all the robosuite data) at once.
 
 ## Running control experiments
@@ -50,8 +66,74 @@ We implement `cem`, `mppi`, `cem-gd`, and `lbfgs`. The latter two require the mo
 ## Example control experiment commands
 We provide the experiment commands used in the paper in the `experiments` folder.
 
+
+## Set up video prediction models 
+Here we provide pretrained code for the experiments in the paper. Each model should be installed through a separate
+Python module and interfaced using the code in `vp2/models`. Please install the modules for the models you would like,
+and then download the pretrained weights if you have not already (please see "Installation" above for the download link). 
+
+### SVG'
+SVG' is implemented in the repository [here](https://github.com/s-tian/svg-prime).
+To install,
+```
+git clone git@github.com:s-tian/svg-prime.git
+cd svg-prime 
+pip install -e .
+```
+
+Example commands for control experiments can be found in `experiments/case_study.txt`.
+
+### FitVid
+FitVid is implemented in the repository [here](https://github.com/s-tian/fitvid).
+To install, 
+```
+git clone git@github.com:s-tian/fitvid.git
+cd fitvid
+pip install -e .
+```
+
+Example commands for control experiments can be found in `experiments/case_study.txt`.
+Unfortunately the exact model weights for the FitVid model used in the paper case study are not available, but the weights 
+provided in the pretrained download are trained in the same way as the models in the paper.
+
+### MCVD
+MCVD is implemented in the repository [here](https://github.com/s-tian/mcvd-pytorch), forked from the authors' original implementation.
+To install, 
+```
+git clone git@github.com:s-tian/mcvd-pytorch.git
+cd mcvd-pytorch
+pip install -e .
+```
+
+Example command to run control with MCVD on the robodesk environment (`push_red` task):
+
+```
+python scripts/run_control.py hydra.job.name=test_mcvd planning_modalities=[rgb] seed=0 env=robodesk agent.optimizer.init_std=[0.5,0.5,0.5,0.1,0.1] env.task=push_red model=mcvd model_name=mcvd agent.optimizer.objective.objectives.rgb.weight=0.5 agent.optimizer.objective.objectives.classifier.weight=10 agent/optimizer/objective=combined_classifier_mse agent.optimizer.log_every=5 model.checkpoint_dir=pretrained_models/mcvd/rdall_base/checkpoint_330000.pt 
+```
+
+### Struct-VRNN
+Struct-VRNN is implemented in the repository [here](https://github.com/s-tian/struct-vrnn-pytorch).
+To install, 
+```
+git clone git@github.com:s-tian/struct-vrnn-pytorch.git
+cd struct-vrnn-pytorch
+pip install -e .
+```
+
+Example command to run control with Struct-VRNN on the robodesk environment (`push_red` task):
+
+```
+python scripts/run_control.py hydra.job.name=test_structvrnn model_name=structvrnn_robodesk model.checkpoint_dir=pretrained_models/struct-vrnn/rdall_base/ model.epoch=210000 model=keypoint_vrnn planning_modalities=[rgb] seed=0  env=robodesk agent.optimizer.init_std=[0.5,0.5,0.5,0.1,0.1] env.task=push_red  agent.optimizer.objective.objectives.rgb.weight=0.5 agent.optimizer.objective.objectives.classifier.weight=10 agent/optimizer/objective=combined_classifier_mse agent.optimizer.log_every=5
+```
+
+Note that some large-valued pixel "specks" appear in the Struct-VRNN predictions. This is a so far unexplained artifact of the model, that may be due to my reimplementation.
+
+### MaskViT
+Please stay tuned for the MaskViT code release [here](https://github.com/agrimgupta92/maskvit).
+
+
 ## Adding new models
-To add a new model, you can add a new config file to the `perceptual_metrics/scripts/configs/model` folder.
+To add a new model, you can add a new config file to the `vp2/scripts/configs/model` folder.
 The config file should use `_target_` to specify the model class to use. The remainder of config items will be 
 passed to the model class as kwargs.
 
@@ -67,8 +149,8 @@ It should then return a dictionary with one key:
 ## Adding new environments
 Although we provide code and configs for the robosuite and robodesk environments, it is relatively straightforward to add new environments.
 To add a new environment, you should do the following:
-- Create a new environment class implementing the BaseEnv interface in `perceptual_metrics/envs/base_env.py`.
-- Add a new config file to the `perceptual_metrics/scripts/configs/env` folder. This should specify the environment class to use and any parameters to pass to the environment class.
+- Create a new environment class implementing the BaseEnv interface in `vp2/envs/base_env.py`.
+- Add a new config file to the `vp2/scripts/configs/env` folder. This should specify the environment class to use and any parameters to pass to the environment class.
 - Use the `env` config to specify the new environment from the `env` config group in the control experiment config or via command override. 
 
 ## Rendering low-dimensional datasets
@@ -90,6 +172,10 @@ python robomimic/robomimic/scripts/dataset_states_to_obs.py --dataset /PATH/HERE
 This seems to be related to EGL driver issues with the `dm_control` package. See [this thread](https://github.com/deepmind/dm_control/issues/370) for more details. 
 For a workaround, try setting the `dm_control` rendering environment variable via `export MUJOCO_GL=osmesa`. 
 Note that this unfortunately does not support GPU rendering, but this is usually not the bottleneck for visual foresight experiments.
+
+#### hydra.errors.InstantiationException: Error locating target 'vp2.models...', see chained exception above.
+This error occurs when the model class specified in the config file cannot be found. Make sure that the model class is installed as a Python module,
+as described above in the [model implementations](#model-implementations-and-pre-trained-weights) section.
 
 ## Citation
 If you find this code useful, please cite the following paper:
