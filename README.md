@@ -64,7 +64,7 @@ Lower level configuration choices include:
 We implement `cem`, `mppi`, `cem-gd`, and `lbfgs`. The latter two require the model and cost function to be differentiable.
 
 ## Example control experiment commands
-We provide the experiment commands used in the paper in the `experiments` folder.
+We provide the experiment commands used in the case study in the paper in the `experiments` folder.
 
 
 ## Set up video prediction models 
