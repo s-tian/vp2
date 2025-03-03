@@ -16,6 +16,8 @@ SVG', FitVid, MCVD, and StructVRNN are also included.
 
 These can all be found at the following link: https://purl.stanford.edu/qf310mj0842 (19.6GB).
 
+**Update March 2, 2025: Data has been uploaded also to HuggingFace datasets, to provide a more convenient download option. The corresponding files are at https://huggingface.co/datasets/s-tian/VP2/tree/main/vp2_benchmark_data.**
+
 The easiest way to get started is to download all files and extract them to the `vp2` folder in this repository.
 That is, the `vp2` folder should contain the following directories:
 - `envs`
@@ -36,6 +38,8 @@ not the output folder as per Hydra defaults.
 
 Lastly, video prediction training datasets for both the robosuite and robodesk environments can be found here:
 https://purl.stanford.edu/cw843qn4148 (182GB total).
+
+**Update March 2, 2025: Data has been uploaded also to HuggingFace datasets, to provide a more convenient download option. The corresponding files are at https://huggingface.co/datasets/s-tian/VP2/tree/main/vp2_training_datasets.**
 
 Included are video data for the robosuite environment (5k trajectories, with the remaining trajectories renderable 
 from low-dimensional state, see [below](#rendering-low-dimensional-datasets)) and full video training data for all robodesk tasks.
